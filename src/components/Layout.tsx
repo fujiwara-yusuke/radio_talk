@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { ReactNode } from 'react';
+import styled from "styled-components"
 
 type Props = {
   children?: ReactNode;
@@ -10,17 +11,30 @@ const Layout = ({ children }: Props) => {
   return (
     <div>
       <Head>
-        <title>MyTemplate</title>
+        <title>ラジオのネタラジオ</title>
       </Head>
-      <header className=''>
+      <HeaderCustom>
         <Link href='/'>
-          <a>Home</a>
+          <a>ラジオのネタラジオ</a>
         </Link>
-      </header>
-      <div className='content'>{children}</div>
+      </HeaderCustom>
+      <MainCutom className='content'>{children}</MainCutom>
       <footer className=''></footer>
     </div>
   );
 };
+
+const HeaderCustom = styled.header`
+  height: 75px;
+  background: #6495ED;
+  a{
+    color: #FFF;
+    font-size: 50px;
+  }
+`
+
+const MainCutom = styled.div`
+  background: #4169E1;
+`
 
 export default Layout;
