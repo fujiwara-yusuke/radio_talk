@@ -1,14 +1,17 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import { Button } from '@mui/material';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import { motion, useAnimation } from "framer-motion";
 
-const TopicsSlider = () => {
+const Topics = () => {
 
   const sliderEl = useRef(null);
+  const displayMessage = useAnimation();
+  const [message, setMessage] = useState('');
 
   const testTopis = [
     {name: "test", theme: "ああああああああああああああああああああああああああああああ"},
@@ -33,20 +36,52 @@ const TopicsSlider = () => {
 
   const playSlide = () => {
     sliderEl.current.slickPlay();
+    setMessage('スライド開始します');
+    displayMessage.start({
+      display: "initial",
+      height: [0, 30, 30, 0],
+      background: "blue",
+      transition: {
+        duration: 4,
+      },
+      transitionEnd: { display: "none" }
+    })
   }
 
   const selectRandom = () => {
     const random = Math.floor( Math.random() * testTopis.length );
     sliderEl.current.slickGoTo(random);
+    sliderEl.current.slickPause();
+    setMessage('この話に決まり！！');
+    displayMessage.start({
+      display: "initial",
+      height: [0, 30, 0],
+      background: "blue",
+      transition: {
+        duration: 4
+      },
+      transitionEnd: { display: "none" }
+    })
   }
 
   const pauseSlide = () => {
     sliderEl.current.slickPause();
+    setMessage('スライド停止します');
+    displayMessage.start({
+      display: "initial",
+      height: [0, 30, 30, 0],
+      background: "red",
+      transition: {
+        duration: 4,
+      },
+      transitionEnd: { display: "none" }
+    })
   }
   
   return (
     <Topcis>
       <SliderWrapper>
+        <CustomMsg animate={displayMessage}>{message}</CustomMsg>
         <SliderCustom ref={sliderEl} {...settings}>
           {
             testTopis.map((topics, index) => {
@@ -76,6 +111,17 @@ const Topcis = styled.div`
   padding: 40px 0px 5px 0px;
 `
 
+const CustomMsg = styled(motion.div)`
+  width: 100%;
+  z-index: 10;
+  position: absolute;
+  color: #FFF;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  opacity: 0.8;
+  text-align: center;
+  line-height: 30px;
+`
 const SliderWrapper = styled.div`
   background: #FFF;
   color: #000;
@@ -84,6 +130,7 @@ const SliderWrapper = styled.div`
   height: 250px;
   margin: auto;
   display: flex;
+  position: relative;
   
   .topics{
     height: 100%;
@@ -163,4 +210,4 @@ const ButtonWrapper = styled.div`
   }
 `
 
-export default TopicsSlider;
+export default Topics;
