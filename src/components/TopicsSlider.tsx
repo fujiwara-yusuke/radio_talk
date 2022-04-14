@@ -96,7 +96,7 @@ const SliderWrapper = styled.div`
   }
 
   .name{
-    margin-left: 30px;
+    margin-left: 50px;
     font-size: 20px;
   }
 
