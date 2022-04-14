@@ -1,20 +1,13 @@
 import type { NextPage } from 'next';
 import styled from 'styled-components';
+import PostForm from 'components/PostForm';
+import TopicsSlider from 'components/TopicsSlider';
 
 const Home: NextPage = () => {
   return (
     <>
-      <h1>ラジオのネタを投稿しよう！！</h1>
-      <SliderWrapper>
-        <div className='slider'>
-          test
-        </div>
-      </SliderWrapper>
-      <div>
-        <div>
-          投稿ふぉーむ予定
-        </div>
-      </div>
+      <TopicsSlider/>
+      <PostForm/>
     </>
   );
 };
