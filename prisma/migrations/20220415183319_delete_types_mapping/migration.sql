@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Topics` ALTER COLUMN `name` DROP DEFAULT;
