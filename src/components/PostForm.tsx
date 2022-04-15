@@ -23,10 +23,10 @@ const PostForm = () => {
       <div className="item_form">
         <div className="item">
           ラジオのネタ
-          {errors.topics && errors.topics.type === "required" && <span className="err_msg">記入してください</span>}
-          {errors.topics && errors.topics.type === "maxLength" && <span className="err_msg">30文字以内にしてください</span>}
+          {errors.theme && errors.theme.type === "required" && <span className="err_msg">記入してください</span>}
+          {errors.theme && errors.theme.type === "maxLength" && <span className="err_msg">30文字以内にしてください</span>}
         </div>
-        <input placeholder="※必須 30文字以内" {...register("topics", { required: true, maxLength: 30})} />
+        <input placeholder="※必須 30文字以内" {...register("theme", { required: true, maxLength: 30})} />
       </div>
       <div className="button_wrapper">
         <Button variant="contained" onClick={handleSubmit(postForm)}>投稿</Button>
@@ -51,9 +51,8 @@ const FormWrapper = styled.div`
     width: 100%;
     padding: 20px 15px;
     font-size: 16px;
-    border-radius: 3px;
+    border-radius: 5px;
     border: 2px solid #ddd;
-    box-sizing: border-box;
   }
 
   .err_msg{
