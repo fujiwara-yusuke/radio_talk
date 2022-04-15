@@ -13,7 +13,7 @@ const Home: NextPage = () => {
 
   const sliderEl = useRef(null);
 
-  const [topicsList, setTopicsList] = useState<TopicsList[]>();
+  const [topicsList, setTopicsList] = useState<TopicsList[]>([]);
   const [isLoad, setIsLoad] = useState<boolean>(true);
   const [message, setMessage] = useState<String>('');
   const displayMessage = useAnimation();
