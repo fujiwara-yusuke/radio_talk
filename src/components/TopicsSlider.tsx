@@ -1,4 +1,5 @@
 import React, { useState, FC } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import { Button } from '@mui/material';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
@@ -52,15 +53,8 @@ const Topics :FC<TopicsProps> = ({
     setIsPause(false);
     sliderEl.current.slickPlay();
     setMessage('スライド開始します');
-    displayMessage.start({
-      display: "initial",
-      height: [0, 30, 30, 0],
-      background: "blue",
-      transition: {
-        duration: 4,
-      },
-      transitionEnd: { display: "none" }
-    })
+    animationSetting.background = "blue";
+    displayMessage.start(animationSetting)
   }
   
   const selectRandom = () => {
@@ -69,30 +63,33 @@ const Topics :FC<TopicsProps> = ({
     sliderEl.current.slickGoTo(random);
     sliderEl.current.slickPause();
     setMessage('この話に決まり！！');
-    displayMessage.start({
-      display: "initial",
-      height: [0, 30, 30, 0],
-      background: "blue",
-      transition: {
-        duration: 4
-      },
-      transitionEnd: { display: "none" }
+    animationSetting.background = "blue";
+    displayMessage.start(animationSetting)
+  }
+  
+  const updateTopicsList = () => {
+    axios.get('api/topics')
+    .then(res => {
+      setTopicsList(res.data);
+      setMessage('トピックスを更新しました');
+      animationSetting.background = "blue";
+      displayMessage.start(animationSetting)
     })
+    .catch(err => {
+      setMessage('トピックスの取得が出来ませんでした');
+      displayMessage.start({
+        display: "initial",
+        height: 30,
+        background: "red",
+      });
+    });
   }
   
   const pauseSlide = () => {
     setIsPause(true);
     sliderEl.current.slickPause();
     setMessage('スライド停止します');
-    displayMessage.start({
-      display: "initial",
-      height: [0, 30, 30, 0],
-      background: "red",
-      transition: {
-        duration: 4,
-      },
-      transitionEnd: { display: "none" }
-    })
+    displayMessage.start(animationSetting);
   }
 
   const removeTopics = (sliderIndex: number) => {
@@ -104,15 +101,17 @@ const Topics :FC<TopicsProps> = ({
       setMessage('トピックスを削除しました');
     }
 
-    displayMessage.start({
-      display: "initial",
-      height: [0, 30, 30, 0],
-      background: "red",
-      transition: {
-        duration: 4,
-      },
-      transitionEnd: { display: "none" }
-    })
+    displayMessage.start(animationSetting);
+  }
+
+  const animationSetting = {
+    display: "initial",
+    height: [0, 30, 30, 0],
+    background: "red",
+    transition: {
+      duration: 4,
+    },
+    transitionEnd: { display: "none" }
   }
   
   return (
@@ -142,7 +141,7 @@ const Topics :FC<TopicsProps> = ({
       <ButtonWrapper>
         <Button variant="contained" onClick={playSlide} disabled={isLoad||!isPause}>スタート</Button>
         <Button variant="contained" onClick={selectRandom}  disabled={isLoad}>ランダム</Button>
-        <Button variant="contained"  disabled={isLoad}>更新</Button>
+        <Button variant="contained" onClick={updateTopicsList} disabled={isLoad}>更新</Button>
         <Button variant="contained" onClick={pauseSlide} disabled={isLoad||isPause}>ストップ</Button>
       </ButtonWrapper>
     </Topcis>
