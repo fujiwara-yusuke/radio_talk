@@ -7,11 +7,14 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { motion, useAnimation } from "framer-motion";
 
+import Loading from "./Loading";
+
 const Topics = () => {
 
   const sliderEl = useRef(null);
   const displayMessage = useAnimation();
   const [message, setMessage] = useState('');
+  const [isPause, setIsPause] = useState(false);
 
   const testTopis = [
     {name: "test", theme: "ああああああああああああああああああああああああああああああ"},
@@ -35,6 +38,7 @@ const Topics = () => {
   };
 
   const playSlide = () => {
+    setIsPause(false);
     sliderEl.current.slickPlay();
     setMessage('スライド開始します');
     displayMessage.start({
@@ -47,8 +51,9 @@ const Topics = () => {
       transitionEnd: { display: "none" }
     })
   }
-
+  
   const selectRandom = () => {
+    setIsPause(true);
     const random = Math.floor( Math.random() * testTopis.length );
     sliderEl.current.slickGoTo(random);
     sliderEl.current.slickPause();
@@ -63,8 +68,9 @@ const Topics = () => {
       transitionEnd: { display: "none" }
     })
   }
-
+  
   const pauseSlide = () => {
+    setIsPause(true);
     sliderEl.current.slickPause();
     setMessage('スライド停止します');
     displayMessage.start({
@@ -82,26 +88,31 @@ const Topics = () => {
     <Topcis>
       <SliderWrapper>
         <CustomMsg animate={displayMessage}>{message}</CustomMsg>
-        <SliderCustom ref={sliderEl} {...settings}>
-          {
-            testTopis.map((topics, index) => {
-              return(
-                <div  key={index} className="topics">
-                  <RemoveCircleIcon/>
-                  <div className="name">{topics.name}さんからの投稿</div>
-                  <h2 className="theme">{topics.theme}</h2>
-                  <div className="gobi">の話</div>
-                </div>
-              )
-            })
-          }
-        </SliderCustom>
+        {
+          true ?
+          <Loading/>
+          :
+          <SliderCustom ref={sliderEl} {...settings}>
+            {
+              testTopis.map((topics, index) => {
+                return(
+                  <div  key={index} className="topics">
+                    <RemoveCircleIcon/>
+                    <div className="name">{topics.name}さんからの投稿</div>
+                    <h2 className="theme">{topics.theme}</h2>
+                    <div className="gobi">の話</div>
+                  </div>
+                )
+              })
+            }
+          </SliderCustom>
+        }
       </SliderWrapper>
       <ButtonWrapper>
-        <Button variant="contained" onClick={playSlide}>スタート</Button>
+        <Button variant="contained" onClick={playSlide} disabled={!isPause}>スタート</Button>
         <Button variant="contained" onClick={selectRandom}>ランダム</Button>
         <Button variant="contained" >更新</Button>
-        <Button variant="contained" onClick={pauseSlide}>ストップ</Button>
+        <Button variant="contained" onClick={pauseSlide} disabled={isPause}>ストップ</Button>
       </ButtonWrapper>
     </Topcis>
   );
