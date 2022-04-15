@@ -1,29 +1,25 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Button } from '@mui/material';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 
 import Loading from "./Loading";
 
-const Topics = () => {
+const Topics = ({
+  topicsList,
+  setTopicsList,
+  isLoad,
+  message,
+  setMessage,
+  displayMessage,
+  sliderEl
+}) => {
 
-  const sliderEl = useRef(null);
-  const displayMessage = useAnimation();
-  const [message, setMessage] = useState('');
   const [isPause, setIsPause] = useState(false);
-
-  const testTopis = [
-    {name: "test", theme: "ああああああああああああああああああああああああああああああ"},
-    {name: "test", theme: "test1test2test3test4test5test6"},
-    {name: "test", theme: "test1test2test3test4test5test6"},
-    {name: "test", theme: "test1test2test3test4test5test6"},
-    {name: "test", theme: "test1test2test3test4test5test6"},
-    {name: "test", theme: "test1test2test3test4test5test6"},
-  ]
 
   const settings = {
     dots: true,
@@ -54,13 +50,13 @@ const Topics = () => {
   
   const selectRandom = () => {
     setIsPause(true);
-    const random = Math.floor( Math.random() * testTopis.length );
+    const random = Math.floor( Math.random() * topicsList.length );
     sliderEl.current.slickGoTo(random);
     sliderEl.current.slickPause();
     setMessage('この話に決まり！！');
     displayMessage.start({
       display: "initial",
-      height: [0, 30, 0],
+      height: [0, 30, 30, 0],
       background: "blue",
       transition: {
         duration: 4
@@ -83,21 +79,41 @@ const Topics = () => {
       transitionEnd: { display: "none" }
     })
   }
+
+  const removeTopics = (sliderIndex: number) => {
+    if(topicsList.length == 1){
+      setMessage('これ以上削除できません');
+    }else{
+      const updateTopicsList = topicsList.filter((topics, index) => index != sliderIndex);
+      setTopicsList(updateTopicsList);
+      setMessage('トピックスを削除しました');
+    }
+
+    displayMessage.start({
+      display: "initial",
+      height: [0, 30, 30, 0],
+      background: "red",
+      transition: {
+        duration: 4,
+      },
+      transitionEnd: { display: "none" }
+    })
+  }
   
   return (
     <Topcis>
       <SliderWrapper>
         <CustomMsg animate={displayMessage}>{message}</CustomMsg>
         {
-          true ?
+          isLoad ?
           <Loading/>
           :
           <SliderCustom ref={sliderEl} {...settings}>
             {
-              testTopis.map((topics, index) => {
+              topicsList.map((topics, index) => {
                 return(
                   <div  key={index} className="topics">
-                    <RemoveCircleIcon/>
+                    <RemoveCircleIcon onClick={() => removeTopics(index)}/>
                     <div className="name">{topics.name}さんからの投稿</div>
                     <h2 className="theme">{topics.theme}</h2>
                     <div className="gobi">の話</div>
@@ -109,10 +125,10 @@ const Topics = () => {
         }
       </SliderWrapper>
       <ButtonWrapper>
-        <Button variant="contained" onClick={playSlide} disabled={!isPause}>スタート</Button>
-        <Button variant="contained" onClick={selectRandom}>ランダム</Button>
-        <Button variant="contained" >更新</Button>
-        <Button variant="contained" onClick={pauseSlide} disabled={isPause}>ストップ</Button>
+        <Button variant="contained" onClick={playSlide} disabled={isLoad||!isPause}>スタート</Button>
+        <Button variant="contained" onClick={selectRandom}  disabled={isLoad}>ランダム</Button>
+        <Button variant="contained"  disabled={isLoad}>更新</Button>
+        <Button variant="contained" onClick={pauseSlide} disabled={isLoad||isPause}>ストップ</Button>
       </ButtonWrapper>
     </Topcis>
   );

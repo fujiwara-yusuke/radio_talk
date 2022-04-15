@@ -2,12 +2,31 @@ import styled from "styled-components"
 import { useForm } from "react-hook-form";
 import { Button } from '@mui/material';
 
-const PostForm = () => {
+const PostForm = ({
+  isLoad,
+  topicsList,
+  setTopicsList,
+  setMessage,
+  displayMessage,
+  sliderEl
+}) => {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const postForm = (data: any) => {
-    console.log(data);
+    const updateTopicsList = [...topicsList, data];
+    setTopicsList(updateTopicsList);
+    setMessage('投稿しました!!');
+    displayMessage.start({
+      display: "initial",
+      height: [0, 30, 30, 0],
+      background: "blue",
+      transition: {
+        duration: 4,
+      },
+      transitionEnd: { display: "none" }
+    })
+    sliderEl.current.slickGoTo(updateTopicsList.length -1);
   }
   
   return (
@@ -29,7 +48,7 @@ const PostForm = () => {
         <input placeholder="※必須 30文字以内" {...register("theme", { required: true, maxLength: 30})} />
       </div>
       <div className="button_wrapper">
-        <Button variant="contained" onClick={handleSubmit(postForm)}>投稿</Button>
+        <Button variant="contained" onClick={handleSubmit(postForm)} disabled={isLoad}>投稿</Button>
       </div>
     </FormWrapper>
   );
