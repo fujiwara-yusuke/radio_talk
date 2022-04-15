@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import axios from "axios";
 import PostForm from 'components/PostForm';
 import Topics from 'components/TopicsSlider';
 import { useRef, useState, useEffect } from 'react';
@@ -19,18 +20,22 @@ const Home: NextPage = () => {
   const displayMessage = useAnimation();
 
   useEffect(() => {
-    const testTopis = [
-      {name: "test", theme: "ああああああああああああああああああああああああああああああ"},
-      {name: "test", theme: "test1test2test3test4test5test6"},
-      {name: "test", theme: "test1test2test3test4test5test6"},
-      {name: "test", theme: "test1test2test3test4test5test6"},
-      {name: "test", theme: "test1test2test3test4test5test6"},
-      {name: "test", theme: "test1test2test3test4test5test6"},
-    ]
-
-    setTopicsList(testTopis);
-    setIsLoad(false);
+    axios.get('api/topics')
+    .then(res => {
+      setTopicsList(res.data);
+      setIsLoad(false);
+    })
+    .catch(err => {
+      setMessage('トピックスの取得が出来ませんでした');
+      displayMessage.start({
+        display: "initial",
+        height: 30,
+        background: "red",
+      });
+      setIsLoad(false);
+    });
   }, [])
+
   return (
     <>
       <Topics

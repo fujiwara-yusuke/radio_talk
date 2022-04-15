@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components"
 import { useForm } from "react-hook-form";
 import { Button } from '@mui/material';
+import axios from "axios";
 
 interface Topics {
   name: string,
@@ -29,19 +30,35 @@ const PostForm: FC<PostForm> = ({
   const { register, handleSubmit, formState: { errors } } = useForm<Topics>();
 
   const postForm = (topics: Topics) => {
-    const updateTopicsList = [...topicsList, topics];
-    setTopicsList(updateTopicsList);
-    setMessage('投稿しました!!');
-    displayMessage.start({
-      display: "initial",
-      height: [0, 30, 30, 0],
-      background: "blue",
-      transition: {
-        duration: 4,
-      },
-      transitionEnd: { display: "none" }
+    axios.post('api/topics', topics)
+    .then(res => {
+      console.log(res.data);
+      const updateTopicsList = [...topicsList, topics];
+      setTopicsList(updateTopicsList);
+      setMessage('投稿しました!!');
+      displayMessage.start({
+        display: "initial",
+        height: [0, 30, 30, 0],
+        background: "blue",
+        transition: {
+          duration: 4,
+        },
+        transitionEnd: { display: "none" }
+      })
+      sliderEl.current.slickGoTo(updateTopicsList.length -1);
     })
-    sliderEl.current.slickGoTo(updateTopicsList.length -1);
+    .catch(err => {
+      setMessage('投稿に失敗しました');
+      displayMessage.start({
+        display: "initial",
+        height: [0, 30, 30, 0],
+        background: "red",
+        transition: {
+          duration: 4,
+        },
+        transitionEnd: { display: "none" }
+      })
+    });
   }
   
   return (
