@@ -41,18 +41,6 @@ const TopicsSlider :FC<Props> = ({
 
   const [isPause, setIsPause] = useState<boolean>(false);
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    arrows: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    pauseOnHover: true
-  };
-
   const playSlide = ():void => {
     setIsPause(false);
     sliderEl.current.slickPlay();
@@ -117,6 +105,18 @@ const TopicsSlider :FC<Props> = ({
     },
     transitionEnd: { display: "none" }
   }
+
+  const sliderSetting = {
+    dots: true,
+    infinite: true,
+    arrows: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: true
+  };
   
   return (
     <Topcis>
@@ -126,7 +126,7 @@ const TopicsSlider :FC<Props> = ({
           isLoad ?
           <Loading/>
           :
-          <SliderCustom ref={sliderEl} {...settings}>
+          <SliderCustom ref={sliderEl} {...sliderSetting}>
             {
               topicsList.map((topics, index) => {
                 return(
