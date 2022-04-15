@@ -17,10 +17,9 @@ interface TopicsList {
 const Home: NextPage = () => {
 
   const sliderEl = useRef(null);
-
   const [topicsList, setTopicsList] = useState<TopicsList[]>([]);
   const [isLoad, setIsLoad] = useState<boolean>(true);
-  const [message, setMessage] = useState<String>('');
+  const [message, setMessage] = useState<string>('');
   const displayMessage = useAnimation();
 
   useEffect(() => {
@@ -29,7 +28,7 @@ const Home: NextPage = () => {
       setTopicsList(res.data);
       setIsLoad(false);
     })
-    .catch(err => {
+    .catch(() => {
       setMessage('トピックスの取得が出来ませんでした');
       displayMessage.start({
         display: "initial",

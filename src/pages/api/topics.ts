@@ -24,14 +24,16 @@ const createTopics = async (post: {name: string, theme: string}) => {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch(req.method){
-    case 'GET':
+    case 'GET': {
       const result = await getRandomTopics();
       res.status(200).json(result);
       break;
-    case 'POST':
+    }
+    case 'POST':{
       await createTopics(req.body);
       res.status(200).json(req.body);
       break;
+    }
   }
 }
 

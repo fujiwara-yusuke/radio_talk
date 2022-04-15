@@ -23,7 +23,7 @@ interface Props {
   isLoad: boolean,
   topicsList: Topics[],
   setTopicsList: (param: Topics[]) => void,
-  message: String,
+  message: string,
   setMessage: (param: string) => void,
   displayMessage: any,
   sliderEl: any
@@ -79,7 +79,7 @@ const TopicsSlider :FC<Props> = ({
       animationSetting.background = "blue";
       displayMessage.start(animationSetting)
     })
-    .catch(err => {
+    .catch(() => {
       setMessage('トピックスの取得が出来ませんでした');
       displayMessage.start({
         display: "initial",

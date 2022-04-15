@@ -50,7 +50,7 @@ const TopicsPostForm: FC<Props> = ({
       displayMessage.start(animationSetting);
       sliderEl.current.slickGoTo(updateTopicsList.length -1);
     })
-    .catch(err => {
+    .catch(() => {
       setMessage('投稿に失敗しました');
       displayMessage.start(animationSetting)
     });
