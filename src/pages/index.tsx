@@ -4,13 +4,18 @@ import Topics from 'components/TopicsSlider';
 import { useRef, useState, useEffect } from 'react';
 import { useAnimation } from "framer-motion";
 
+interface TopicsList {
+  name: String,
+  theme: String
+}
+
 const Home: NextPage = () => {
 
   const sliderEl = useRef(null);
 
-  const [topicsList, setTopicsList] = useState();
-  const [isLoad, setIsLoad] = useState(true);
-  const [message, setMessage] = useState('');
+  const [topicsList, setTopicsList] = useState<TopicsList[]>();
+  const [isLoad, setIsLoad] = useState<Boolean>(true);
+  const [message, setMessage] = useState<String>('');
   const displayMessage = useAnimation();
 
   useEffect(() => {

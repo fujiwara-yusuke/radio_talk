@@ -1,8 +1,23 @@
+import React, { FC } from "react";
 import styled from "styled-components"
 import { useForm } from "react-hook-form";
 import { Button } from '@mui/material';
 
-const PostForm = ({
+interface TopicsList {
+  name: String,
+  theme: String
+}
+
+interface PostForm {
+  isLoad: Boolean,
+  topicsList: TopicsList[],
+  setTopicsList: any,
+  setMessage: any,
+  displayMessage: any,
+  sliderEl: any
+}
+
+const PostForm: FC<PostForm> = ({
   isLoad,
   topicsList,
   setTopicsList,

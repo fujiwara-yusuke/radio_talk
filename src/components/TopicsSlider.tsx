@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, FC } from "react";
 import styled from "styled-components";
 import { Button } from '@mui/material';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
@@ -9,7 +9,22 @@ import { motion } from "framer-motion";
 
 import Loading from "./Loading";
 
-const Topics = ({
+interface TopicsList {
+  name: String,
+  theme: String
+}
+
+interface Topics {
+  isLoad: Boolean,
+  topicsList: TopicsList[],
+  setTopicsList: any,
+  message: String,
+  setMessage: any,
+  displayMessage: any,
+  sliderEl: any
+}
+
+const Topics :FC<Topics> = ({
   topicsList,
   setTopicsList,
   isLoad,
