@@ -17,16 +17,17 @@ const testTopics:Topics[] = [
   {name: "ゆすけ_管理者", theme: "勉強法について"},
 ];
 
-const createRecord = async (topics: Topics) => {
-  await prisma.topics.create({data: topics});
+const createRecord = async () => {
+  await prisma.topics.createMany({
+    data: testTopics,
+    skipDuplicates: true
+  });
 }
-testTopics.forEach(topics => {
-  createRecord(topics)
-  .catch(e => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect()
-  })
+createRecord()
+.catch(e => {
+  console.error(e);
+  process.exit(1);
+})
+.finally(async () => {
+  await prisma.$disconnect()
 })

@@ -6,8 +6,12 @@ import { useRef, useState, useEffect } from 'react';
 import { useAnimation } from "framer-motion";
 
 interface TopicsList {
-  name: string,
-  theme: string
+  id:        number,
+  name:      string,
+  theme:     string,
+  good:      number,
+  bad:       number,
+  createdAt: Date
 }
 
 const Home: NextPage = () => {

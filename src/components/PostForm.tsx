@@ -5,8 +5,12 @@ import { Button } from '@mui/material';
 import axios from "axios";
 
 interface Topics {
-  name: string,
-  theme: string
+  id:        number,
+  name:      string,
+  theme:     string,
+  good:      number,
+  bad:       number,
+  createdAt: Date
 }
 
 interface PostForm {

@@ -11,8 +11,12 @@ import { motion } from "framer-motion";
 import Loading from "./Loading";
 
 interface Topics {
-  name: string,
-  theme: string
+  id:        number,
+  name:      string,
+  theme:     string,
+  good:      number,
+  bad:       number,
+  createdAt: Date
 }
 
 interface TopicsProps {
