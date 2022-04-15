@@ -30,35 +30,36 @@ const PostForm: FC<PostForm> = ({
   const { register, handleSubmit, formState: { errors } } = useForm<Topics>();
 
   const postForm = (topics: Topics) => {
+    if(topicsList.length > 15){
+      setMessage('これ以上追加できません');
+      displayMessage.start(animationSetting);
+      return;
+    }
+
     axios.post('api/topics', topics)
     .then(res => {
       console.log(res.data);
       const updateTopicsList = [...topicsList, topics];
       setTopicsList(updateTopicsList);
       setMessage('投稿しました!!');
-      displayMessage.start({
-        display: "initial",
-        height: [0, 30, 30, 0],
-        background: "blue",
-        transition: {
-          duration: 4,
-        },
-        transitionEnd: { display: "none" }
-      })
+      animationSetting.background = "blue";
+      displayMessage.start(animationSetting);
       sliderEl.current.slickGoTo(updateTopicsList.length -1);
     })
     .catch(err => {
       setMessage('投稿に失敗しました');
-      displayMessage.start({
-        display: "initial",
-        height: [0, 30, 30, 0],
-        background: "red",
-        transition: {
-          duration: 4,
-        },
-        transitionEnd: { display: "none" }
-      })
+      displayMessage.start(animationSetting)
     });
+  }
+
+  const animationSetting = {
+    display: "initial",
+    height: [0, 30, 30, 0],
+    background: "red",
+    transition: {
+      duration: 4,
+    },
+    transitionEnd: { display: "none" }
   }
   
   return (
