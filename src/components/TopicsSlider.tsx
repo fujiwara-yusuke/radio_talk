@@ -53,7 +53,7 @@ const TopicsSlider :FC<Props> = ({
     pauseOnHover: true
   };
 
-  const playSlide = () => {
+  const playSlide = ():void => {
     setIsPause(false);
     sliderEl.current.slickPlay();
     setMessage('スライド開始します');
@@ -61,7 +61,7 @@ const TopicsSlider :FC<Props> = ({
     displayMessage.start(animationSetting)
   }
   
-  const selectRandom = () => {
+  const selectRandom = ():void => {
     setIsPause(true);
     const random = Math.floor( Math.random() * topicsList.length );
     sliderEl.current.slickGoTo(random);
@@ -71,7 +71,7 @@ const TopicsSlider :FC<Props> = ({
     displayMessage.start(animationSetting)
   }
   
-  const updateTopicsList = () => {
+  const updateTopicsList = ():void => {
     axios.get('api/topics')
     .then(res => {
       setTopicsList(res.data);
@@ -89,14 +89,14 @@ const TopicsSlider :FC<Props> = ({
     });
   }
   
-  const pauseSlide = () => {
+  const pauseSlide = ():void => {
     setIsPause(true);
     sliderEl.current.slickPause();
     setMessage('スライド停止します');
     displayMessage.start(animationSetting);
   }
 
-  const removeTopics = (sliderIndex: number) => {
+  const removeTopics = (sliderIndex: number):void => {
     if(topicsList.length == 1){
       setMessage('これ以上削除できません');
     }else{
