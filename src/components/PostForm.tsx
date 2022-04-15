@@ -3,16 +3,16 @@ import styled from "styled-components"
 import { useForm } from "react-hook-form";
 import { Button } from '@mui/material';
 
-interface TopicsList {
-  name: String,
-  theme: String
+interface Topics {
+  name: string,
+  theme: string
 }
 
 interface PostForm {
-  isLoad: Boolean,
-  topicsList: TopicsList[],
-  setTopicsList: any,
-  setMessage: any,
+  isLoad: boolean,
+  topicsList: Topics[],
+  setTopicsList: (param: Topics[]) => void,
+  setMessage: (param: string) => void,
   displayMessage: any,
   sliderEl: any
 }
@@ -26,10 +26,10 @@ const PostForm: FC<PostForm> = ({
   sliderEl
 }) => {
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm<Topics>();
 
-  const postForm = (data: any) => {
-    const updateTopicsList = [...topicsList, data];
+  const postForm = (topics: Topics) => {
+    const updateTopicsList = [...topicsList, topics];
     setTopicsList(updateTopicsList);
     setMessage('投稿しました!!');
     displayMessage.start({

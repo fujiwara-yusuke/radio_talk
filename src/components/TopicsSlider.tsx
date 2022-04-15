@@ -9,22 +9,22 @@ import { motion } from "framer-motion";
 
 import Loading from "./Loading";
 
-interface TopicsList {
-  name: String,
-  theme: String
+interface Topics {
+  name: string,
+  theme: string
 }
 
-interface Topics {
-  isLoad: Boolean,
-  topicsList: TopicsList[],
-  setTopicsList: any,
+interface TopicsProps {
+  isLoad: boolean,
+  topicsList: Topics[],
+  setTopicsList: (param: Topics[]) => void,
   message: String,
-  setMessage: any,
+  setMessage: (param: string) => void,
   displayMessage: any,
   sliderEl: any
 }
 
-const Topics :FC<Topics> = ({
+const Topics :FC<TopicsProps> = ({
   topicsList,
   setTopicsList,
   isLoad,
@@ -34,7 +34,7 @@ const Topics :FC<Topics> = ({
   sliderEl
 }) => {
 
-  const [isPause, setIsPause] = useState(false);
+  const [isPause, setIsPause] = useState<boolean>(false);
 
   const settings = {
     dots: true,

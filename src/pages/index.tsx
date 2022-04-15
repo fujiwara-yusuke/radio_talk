@@ -5,8 +5,8 @@ import { useRef, useState, useEffect } from 'react';
 import { useAnimation } from "framer-motion";
 
 interface TopicsList {
-  name: String,
-  theme: String
+  name: string,
+  theme: string
 }
 
 const Home: NextPage = () => {
@@ -14,7 +14,7 @@ const Home: NextPage = () => {
   const sliderEl = useRef(null);
 
   const [topicsList, setTopicsList] = useState<TopicsList[]>();
-  const [isLoad, setIsLoad] = useState<Boolean>(true);
+  const [isLoad, setIsLoad] = useState<boolean>(true);
   const [message, setMessage] = useState<String>('');
   const displayMessage = useAnimation();
 
