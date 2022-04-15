@@ -19,7 +19,7 @@ interface Topics {
   createdAt: Date
 }
 
-interface TopicsProps {
+interface Props {
   isLoad: boolean,
   topicsList: Topics[],
   setTopicsList: (param: Topics[]) => void,
@@ -29,7 +29,7 @@ interface TopicsProps {
   sliderEl: any
 }
 
-const Topics :FC<TopicsProps> = ({
+const TopicsSlider :FC<Props> = ({
   topicsList,
   setTopicsList,
   isLoad,
@@ -255,4 +255,4 @@ const ButtonWrapper = styled.div`
   }
 `
 
-export default Topics;
+export default TopicsSlider;

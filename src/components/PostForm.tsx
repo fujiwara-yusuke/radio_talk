@@ -13,7 +13,7 @@ interface Topics {
   createdAt: Date
 }
 
-interface PostForm {
+interface Props {
   isLoad: boolean,
   topicsList: Topics[],
   setTopicsList: (param: Topics[]) => void,
@@ -22,7 +22,7 @@ interface PostForm {
   sliderEl: any
 }
 
-const PostForm: FC<PostForm> = ({
+const TopicsPostForm: FC<Props> = ({
   isLoad,
   topicsList,
   setTopicsList,
@@ -33,7 +33,7 @@ const PostForm: FC<PostForm> = ({
 
   const { register, handleSubmit, formState: { errors } } = useForm<Topics>();
 
-  const postForm = (topics: Topics) => {
+  const postTopics = (topics: Topics) => {
     if(topicsList.length > 15){
       setMessage('これ以上追加できません');
       displayMessage.start(animationSetting);
@@ -85,7 +85,7 @@ const PostForm: FC<PostForm> = ({
         <input placeholder="※必須 30文字以内" {...register("theme", { required: true, maxLength: 30})} />
       </div>
       <div className="button_wrapper">
-        <Button variant="contained" onClick={handleSubmit(postForm)} disabled={isLoad}>投稿</Button>
+        <Button variant="contained" onClick={handleSubmit(postTopics)} disabled={isLoad}>投稿</Button>
       </div>
     </FormWrapper>
   );
@@ -128,4 +128,4 @@ const FormWrapper = styled.div`
   }
 `
 
-export default PostForm;
+export default TopicsPostForm;

@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import axios from "axios";
 import PostForm from 'components/PostForm';
-import Topics from 'components/TopicsSlider';
+import TopicsSlider from 'components/TopicsSlider';
 import { useRef, useState, useEffect } from 'react';
 import { useAnimation } from "framer-motion";
 
@@ -42,7 +42,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Topics
+      <TopicsSlider
         isLoad={isLoad}
         topicsList={topicsList}
         setTopicsList={setTopicsList}
@@ -50,7 +50,7 @@ const Home: NextPage = () => {
         setMessage={setMessage}
         displayMessage={displayMessage}
         sliderEl={sliderEl}
-        />
+      />
       <PostForm
         isLoad={isLoad}
         topicsList={topicsList}
@@ -58,7 +58,7 @@ const Home: NextPage = () => {
         setMessage={setMessage}
         displayMessage={displayMessage}
         sliderEl={sliderEl}
-        />
+      />
     </>
   );
 };
