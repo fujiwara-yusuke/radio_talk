@@ -6,7 +6,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import { motion } from "framer-motion";
+import { motion, AnimationControls } from "framer-motion";
 
 import Loading from "./Loading";
 
@@ -25,7 +25,7 @@ interface Props {
   setTopicsList: (param: Topics[]) => void,
   message: string,
   setMessage: (param: string) => void,
-  displayMessage: any,
+  displayMessage: AnimationControls,
   sliderEl: any
 }
 
@@ -98,7 +98,7 @@ const TopicsSlider :FC<Props> = ({
 
   const animationSetting = {
     display: "initial",
-    height: [0, 30, 30, 0],
+    height: [0, 35, 35, 0],
     background: "red",
     transition: {
       duration: 4,

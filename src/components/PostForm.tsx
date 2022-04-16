@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { useForm } from "react-hook-form";
 import { Button } from '@mui/material';
 import axios from "axios";
+import { AnimationControls } from "framer-motion";
 
 interface Topics {
   id:        number,
@@ -18,7 +19,7 @@ interface Props {
   topicsList: Topics[],
   setTopicsList: (param: Topics[]) => void,
   setMessage: (param: string) => void,
-  displayMessage: any,
+  displayMessage: AnimationControls,
   sliderEl: any
 }
 
@@ -58,7 +59,7 @@ const TopicsPostForm: FC<Props> = ({
 
   const animationSetting = {
     display: "initial",
-    height: [0, 30, 30, 0],
+    height: [0, 35, 35, 0],
     background: "red",
     transition: {
       duration: 4,
