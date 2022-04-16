@@ -17,14 +17,17 @@ const updateGoodBad = async (post: Topics) =>{
     where:{
       id: post.id
     },
-    data: post
+    data: {
+      good: post.good,
+      bad: post.bad,
+    }
   })
   return result;
 }
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = (req: NextApiRequest, res: NextApiResponse) => {
   if(req.method === "POST"){
-    await updateGoodBad(req.body);
+    updateGoodBad(req.body);
     res.status(200).json(req.body);
   }
 }

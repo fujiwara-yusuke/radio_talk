@@ -32,7 +32,7 @@ const createTopics = async (req: NextApiRequest, res: NextApiResponse, post: {na
   }
 }
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = (req: NextApiRequest, res: NextApiResponse) => {
   switch(req.method){
     case 'GET': {
       getRandomTopics(req, res);
