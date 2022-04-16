@@ -212,6 +212,24 @@ const SliderWrapper = styled.div`
     margin-right: 50px;
     font-size: 20px;
   }
+
+  @media screen and (max-width: 480px) {
+    height: 210px;
+    .topics{
+      padding: 40px 0px;
+    }
+    .name{
+      margin-left: 20px;
+      font-size: 15px;
+    }
+    .theme{ 
+      font-size: 20px;
+    }
+    .gobi{
+      margin-right: 35px;
+      font-size: 20px;
+    }
+  }
 `
   
 const SliderCustom = styled(Slider)`
@@ -246,6 +264,19 @@ const SliderCustom = styled(Slider)`
     position: initial;
     bottom: 0;
     height: 10%;
+  }
+
+  @media screen and (max-width: 480px) {
+    .slick-list{
+      height: 80%;
+    }
+    .slick-prev:before,
+    .slick-next:before {
+      display: none;
+    }
+    ul.slick-dots{
+      height: 20%;
+    }
   }
 `
 

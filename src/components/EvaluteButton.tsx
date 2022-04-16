@@ -102,6 +102,11 @@ const EvaluteButtonWrapper = styled.div`
   .bad_button div{
     line-height: 24px;
   }
+
+  @media screen and (max-width: 480px) {
+    left: 20px;
+    top: 145px;
+  }
 `
 
 export default EvaluteButton;

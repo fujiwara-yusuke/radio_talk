@@ -79,7 +79,7 @@ const TopicsPostForm: FC<Props> = ({
           {errors.name && errors.name.type === "required" && <span className="err_msg">記入してください</span>}
           {errors.name && errors.name.type === "maxLength" && <span className="err_msg">20文字以内にしてください</span>}
         </div>
-        <input defaultValue="匿名希望" placeholder="※必須 20文字以内" {...register("name", { required: true, maxLength: 20 })} />
+        <input defaultValue="匿名希望" placeholder="※必須 10文字以内" {...register("name", { required: true, maxLength: 10 })} />
       </div>
       <div className="item_form">
         <div className="item">
@@ -130,6 +130,16 @@ const FormWrapper = styled.div`
 
   .MuiButton-root{
     width: 120px;
+  }
+  @media screen and (max-width: 480px) {
+    width: 80%;
+    .item{
+      font-size: 20px;
+    }
+    input{
+      padding: 10px 5px;
+      font-size: 15px;
+    }
   }
 `
 

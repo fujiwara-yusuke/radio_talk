@@ -31,6 +31,11 @@ const HeaderCustom = styled.header`
     color: #FFF;
     font-size: 50px;
   }
+  @media screen and (max-width: 480px) {
+    a{
+      font-size: 40px;
+    }
+  }
 `
 
 const MainCutom = styled.div`
