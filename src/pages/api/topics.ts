@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, Prisma } from '@prisma/client'
 
 interface Topics {
   id:        number,
@@ -12,26 +12,34 @@ interface Topics {
 
 const prisma = new PrismaClient();
 
-const getRandomTopics = async () =>{
+const getRandomTopics = async (req: NextApiRequest, res: NextApiResponse) => {
   const result = await prisma.$queryRaw<Topics[]>`select * from Topics order by RAND() limit 10;`
-  return result;
+  res.status(200).json(result);
 }
 
-const createTopics = async (post: {name: string, theme: string}) => {
-  const result = await prisma.topics.create({data: post});
-  return result;
+const createTopics = async (req: NextApiRequest, res: NextApiResponse, post: {name: string, theme: string}) => {
+  try{
+    await prisma.topics.create({data: post});
+    res.status(200).json(post);
+  }catch(err){
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      if (err.code === 'P2002') {
+        res.status(500).send({ errorCode: err.code })
+      }
+    }else{
+      throw err;
+    }
+  }
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch(req.method){
     case 'GET': {
-      const result = await getRandomTopics();
-      res.status(200).json(result);
+      getRandomTopics(req, res);
       break;
     }
     case 'POST':{
-      await createTopics(req.body);
-      res.status(200).json(req.body);
+      createTopics(req, res, req.body);
       break;
     }
   }

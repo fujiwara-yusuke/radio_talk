@@ -13,7 +13,7 @@ datasource db {
 model Topics {
   id         Int        @default(autoincrement()) @id
   name       String     @db.VarChar(20)
-  theme      String     @db.VarChar(30)
+  theme      String     @db.VarChar(30) @unique
   good       Int        @default(0)
   bad        Int        @default(0)
   createdAt  DateTime   @default(now())

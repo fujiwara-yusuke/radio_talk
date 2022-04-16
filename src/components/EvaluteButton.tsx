@@ -1,4 +1,4 @@
-import React, { useState, FC } from "react";
+import { useState, FC } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
@@ -21,21 +21,13 @@ interface Props {
   displayMessage: any
 }
 
-const TopicsSlider :FC<Props> = ({
+const EvaluteButton :FC<Props> = ({
   topics,
   setMessage,
   displayMessage
 }) => {
   const [isGood, setIsGood] = useState<boolean>(false);
   const [isBad, setIsBad] = useState<boolean>(false);
-
-  const fixEvaluteNumber = (evlnumber: number) => {
-    if(evlnumber >= 1000){
-
-    }else if(evlnumber >= 1000000){
-
-    }
-  }
   
   const evaluteGood = ():void => {
     topics.good = topics.good + 1;
@@ -69,7 +61,7 @@ const TopicsSlider :FC<Props> = ({
   }
   
   return (
-    <EvaluteButton>
+    <EvaluteButtonWrapper>
       <div className="good_button">
         {isGood ?
           <ThumbUpAltIcon/>
@@ -86,11 +78,11 @@ const TopicsSlider :FC<Props> = ({
         }
         <div>{topics.bad}bad</div>
       </div>
-    </EvaluteButton>
+    </EvaluteButtonWrapper>
   );
 };
 
-const EvaluteButton = styled.div`
+const EvaluteButtonWrapper = styled.div`
   position: absolute;
   left: 45px;
   display: flex;
@@ -112,4 +104,4 @@ const EvaluteButton = styled.div`
   }
 `
 
-export default TopicsSlider;
+export default EvaluteButton;

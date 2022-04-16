@@ -51,8 +51,12 @@ const TopicsPostForm: FC<Props> = ({
       displayMessage.start(animationSetting);
       sliderEl.current.slickGoTo(updateTopicsList.length -1);
     })
-    .catch(() => {
-      setMessage('投稿に失敗しました');
+    .catch(err => {
+      if(err.response.data.errorCode === "P2002"){
+        setMessage('同じ内容の投稿がありました');
+      }else{
+        setMessage('投稿に失敗しました');
+      }
       displayMessage.start(animationSetting)
     });
   }
