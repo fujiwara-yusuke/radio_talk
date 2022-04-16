@@ -41,8 +41,6 @@ const TopicsSlider :FC<Props> = ({
 }) => {
 
   const [isPause, setIsPause] = useState<boolean>(false);
-  const [isGood, setIsGood] = useState<boolean>(false);
-  const [isBad, setIsBad] = useState<boolean>(false);
 
   const playSlide = ():void => {
     setIsPause(false);
