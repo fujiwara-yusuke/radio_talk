@@ -277,6 +277,10 @@ const SliderCustom = styled(Slider)`
     ul.slick-dots{
       height: 20%;
     }
+    .slick-dots li{
+      width: 10px;
+      height: 10px;
+    }
   }
 `
 
