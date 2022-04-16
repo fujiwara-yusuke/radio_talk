@@ -3,12 +3,17 @@ import axios from "axios";
 import styled from "styled-components";
 import { Button } from '@mui/material';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import { motion, AnimationControls } from "framer-motion";
 
 import Loading from "./Loading";
+import EvaluteButton from "./EvaluteButton";
 
 interface Topics {
   id:        number,
@@ -40,6 +45,8 @@ const TopicsSlider :FC<Props> = ({
 }) => {
 
   const [isPause, setIsPause] = useState<boolean>(false);
+  const [isGood, setIsGood] = useState<boolean>(false);
+  const [isBad, setIsBad] = useState<boolean>(false);
 
   const playSlide = ():void => {
     setIsPause(false);
@@ -83,7 +90,7 @@ const TopicsSlider :FC<Props> = ({
     setMessage('スライド停止します');
     displayMessage.start(animationSetting);
   }
-
+  
   const removeTopics = (sliderIndex: number):void => {
     if(topicsList.length == 1){
       setMessage('これ以上削除できません');
@@ -92,7 +99,7 @@ const TopicsSlider :FC<Props> = ({
       setTopicsList(updateTopicsList);
       setMessage('トピックスを削除しました');
     }
-
+    
     displayMessage.start(animationSetting);
   }
 
@@ -135,6 +142,11 @@ const TopicsSlider :FC<Props> = ({
                     <div className="name">{topics.name}さんからの投稿</div>
                     <h2 className="theme">{topics.theme}</h2>
                     <div className="gobi">の話</div>
+                    <EvaluteButton
+                      topics={topics}
+                      setMessage={setMessage}
+                      displayMessage={displayMessage}
+                    />
                   </div>
                 )
               })
@@ -183,7 +195,7 @@ const SliderWrapper = styled.div`
     padding: 60px 0px;
   }
 
-  .MuiSvgIcon-root{
+  .MuiSvgIcon-root[data-testid="RemoveCircleIcon"]{
     position: absolute;
     right: 10px;
     top: 10px;
