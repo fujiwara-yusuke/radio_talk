@@ -171,7 +171,7 @@ const CustomMsg = styled(motion.div)`
   border-top-right-radius: 5px;
   opacity: 0.8;
   text-align: center;
-  line-height: 30px;
+  line-height: 35px;
 `
 const SliderWrapper = styled.div`
   background: #FFF;
